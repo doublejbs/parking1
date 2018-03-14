@@ -1,5 +1,6 @@
 package com.example.suh.parking;
 //씨발 깃허브
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,13 +14,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        try {
-            Thread.sleep(1500);                     //대충 만들긴했는데 여기서 로딩화면 시간 조절
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        setTheme(R.style.AppTheme);
 
+        startActivity(new Intent(getApplicationContext(),SplashActivity.class));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
