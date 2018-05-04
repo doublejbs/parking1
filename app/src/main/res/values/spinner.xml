@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="brandList">
+            <item>SAMSUNG</item>
+            <item>CHEVOLET</item>
+            <item>BMW</item>
+            <item>BENZ</item>
+    </string-array>
+    <string-array name="bwm_carList">
+        <item>bmw-1</item>
+        <item>bmw-1</item>
+        <item>bmw-2</item>
+        <item>bmw-3</item>
+    </string-array>
+    <string-array name="benz_carList">
+        <item>benz-1</item>
+        <item>benz-1</item>
+        <item>benz-2</item>
+        <item>benz-3</item>
+    </string-array>
+
+    
+</resources>

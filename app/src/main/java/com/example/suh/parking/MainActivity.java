@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 startActivity(new Intent(getApplicationContext(),RegisterActivity.class));
+                //+ 버튼 클릭시 register 페이지로 전달
             }
         });
 
