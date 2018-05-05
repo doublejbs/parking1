@@ -6,7 +6,19 @@
             <item>BMW</item>
             <item>BENZ</item>
     </string-array>
-    <string-array name="bwm_carList">
+    <string-array name="samsung_carList">
+        <item>samsung-0</item>
+        <item>samsung-1</item>
+        <item>samsung-2</item>
+        <item>samsung-3</item>
+    </string-array>
+    <string-array name="chevolet_carList">
+        <item>chevolet-0</item>
+        <item>chevolet-1</item>
+        <item>chevolet-2</item>
+        <item>chevolet-3</item>
+    </string-array>
+    <string-array name="bmw_carList">
         <item>bmw-1</item>
         <item>bmw-1</item>
         <item>bmw-2</item>
