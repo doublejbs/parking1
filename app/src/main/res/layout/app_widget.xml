@@ -4,7 +4,16 @@
     android:background="#FFFFFF"
     android:padding="@dimen/widget_margin"
     android:orientation="vertical">
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5">
+       <Button
+           android:id="@+id/widget_add_position_btn"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="주차 위치 추가"/>
+    </LinearLayout>
    <LinearLayout
        android:layout_width="match_parent"
        android:layout_height="0dp"
@@ -21,7 +30,7 @@
         android:layout_weight="1">
     <TextView
         android:text="차량을 선택해 주세요"
-        android:textSize="30dp"
+        android:textSize="20dp"
         android:id="@+id/widget_position"
         android:gravity="center"
         android:layout_width="match_parent"

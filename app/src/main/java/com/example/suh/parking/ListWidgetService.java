@@ -3,6 +3,8 @@ package com.example.suh.parking;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.Message;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.RemoteViews;
@@ -68,18 +70,22 @@ class UpdateWidgetListView implements RemoteViewsService.RemoteViewsFactory{
 
 
         RemoteViews remoteView = new RemoteViews(mContext.getPackageName(),R.layout.item);
-
-
         //여기서 원하는 문자열 처리
         remoteView.setTextViewText(R.id.widget_item,mCarList.get(position));
 
         //실행시 어떤거 처리 해주는걸 여기서 해야함
 
-            Intent fillinIntent = new Intent();
 
-            fillinIntent.putExtra("row_nickname",mCarList.get(position));
+            // listview 클릭시 아래에 있는 text 변환 시키기 위한 text
+            Bundle extras = new Bundle();
+
+            extras.putInt(AppWidget.EXTRA_ITEM,position);
+            extras.putString(AppWidget.STRING_ITEM,mCarList.get(position));
+
+            Intent fillinIntent = new Intent();
+            fillinIntent.putExtras(extras);
             remoteView.setOnClickFillInIntent(R.id.widget_item,fillinIntent);
-            Log.e("tag",mCarList.get(position));
+
 
 
 

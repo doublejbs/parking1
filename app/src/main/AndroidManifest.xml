@@ -47,10 +47,15 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/app_widget_info" />
         </receiver>
+
         <service
             android:name=".ListWidgetService"
             android:exported="false"
-            android:permission="android.permission.BIND_REMOTEVIEWS"/>
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <activity android:name=".dialog"
+            android:theme="@android:style/Theme.Holo.Dialog"
+            android:label="주차 위치 추가"></activity>
     </application>
 
 </manifest>

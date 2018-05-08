@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="2"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <ListView
+        android:id="@+id/dialog_car_list"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        />
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@id/dialog_car_list" >
+        <NumberPicker
+            android:id="@+id/dialog_undergroundCheck"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:descendantFocusability="blocksDescendants"
+            ></NumberPicker>
+        <NumberPicker
+            android:id="@+id/dialog_numOfFloor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            ></NumberPicker>
+        <NumberPicker
+            android:id="@+id/dialog_center_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:descendantFocusability="blocksDescendants"/>
+        <NumberPicker
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/dialog_alphabetpick"
+            android:descendantFocusability="blocksDescendants"
+            ></NumberPicker>
+        <NumberPicker
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/dialog_numberpick"
+            ></NumberPicker>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_weight ="1"
+            android:text="등록"
+            android:id="@+id/dialog_submit_position"
+            android:layout_height="match_parent"
+            />
+    </android.support.v7.widget.LinearLayoutCompat>
+</android.support.constraint.ConstraintLayout>
