@@ -23,7 +23,7 @@ import android.widget.Toast;
 public class RegisterActivity extends Activity{
     private Spinner spBrand = null;
     private Spinner carList = null;
-    private EditText nickName = null;;
+    private EditText nickName = null;
     private ArrayAdapter<String> bAdapter =  null;
     private ArrayAdapter<String> cAdapter = null;
     private Button submitBtn =null;

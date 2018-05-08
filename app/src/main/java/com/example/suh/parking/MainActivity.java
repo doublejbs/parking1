@@ -9,6 +9,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private NumberPicker floorNum_picker;
     private NumberPicker cen_text;
     private Button btn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -39,18 +42,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         dbClass newdb = new dbClass(getApplicationContext(),"MYLIST.db",null,1);
+
         String list = newdb.read();
 
-        //리스트 목록 생성
-        String[] listString = {"list1","list2","list3"};  // 리스트 추가하면 추가 할 수 있게
 
+        //DB 에서 가져와서 listview에 현재 가지고 있는 모든 차량 리스트를 뽑음
         ArrayList<String> arr = new ArrayList<>();
-
-
          String[] imsi = list.split("/");
          for(String item:imsi){
             arr.add(item);
         }
+
+
         //리스트 어뎁터 생성
         ArrayAdapter<String> adapter
                 = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arr);
@@ -65,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
         // 절반은 listview 나머지 절반은 자동차 위치를 알려주는 text 라던지 scroll이라던지로 하면될듯?
         listView.setClickable(true);
 
-        listView.setSelector(new PaintDrawable(0xFFCC00CC));  //색깔만 표시 일단 해두고
+        listView.setSelector(new PaintDrawable(0xFF808080));  //색깔만 표시 일단 해두고
+
 
 
         //number picker 선택
@@ -119,20 +123,55 @@ public class MainActivity extends AppCompatActivity {
         number_picker.setMaxValue(99);
 
 
-
-
-
+        final String[] nickName = {null};
         //여기다가 추가해야할듯
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-              // Toast.makeText(MainActivity.this, position,Toast.LENGTH_LONG).show();  //얘는 뭐가 문제였지  position 왜 인식을 못할까?
+              //  SparseBooleanArray positions = listView.getCheckedItemPositions();
+                int pos = parent.getPositionForView(view);
+                nickName[0] = listView.getItemAtPosition(pos).toString();
+            //    Toast.makeText(MainActivity.this,listView.getItemAtPosition(pos).toString(),Toast.LENGTH_LONG).show();
+                dataDB check_db = new dataDB(getApplicationContext(),"POSITION.db",null,1);
+                String result = check_db.read(nickName[0]);
+                if(result.isEmpty()){
+                }else
+                    Toast.makeText(getApplicationContext(),result+ "에 위치해 있음",Toast.LENGTH_LONG).show();
+                    //안비어있으면 위치 띄워주기
             }
 
-
         });
+
+
+        //등록버튼 활성화
+        //버튼시 해당 DB에 주차 위치가 지상/지하 , 층수 , 1 - 10 이런식으로 저장됨
+        btn =(Button)findViewById(R.id.submit_position);
+        btn.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                    int undergroundcheck_picker_index = undergroundcheck_picker.getValue();
+                    int floornum_picker_value = floorNum_picker.getValue();
+                    int alphabet_picker_index = alphabet_picker.getValue();
+                    int number_picker_value = number_picker.getValue();
+      //          Toast.makeText(MainActivity.this, underground_array[undergroundcheck_picker_index], Toast.LENGTH_SHORT).show();
+                if(nickName[0]==null) //이 줄은 똑바로 안되는듯?
+                    Toast.makeText(MainActivity.this,"차량 선택을 먼저 해 주세요",Toast.LENGTH_LONG);
+                else {
+                       dataDB nick_db = new dataDB(getApplicationContext(),"POSITION.db",null,1);
+                       nick_db.delete(nickName[0]);
+                       nick_db.insert(nickName[0], underground_array[undergroundcheck_picker_index], floornum_picker_value
+                            , alphabet_array[alphabet_picker_index], number_picker_value);
+                       Toast.makeText(MainActivity.this,nickName[0]+ underground_array[undergroundcheck_picker_index]+floornum_picker_value
+                               +alphabet_array[alphabet_picker_index]+ number_picker_value,Toast.LENGTH_LONG).show();
+                       //저장 확인을 위한 toast
+                }
+            }
+        });
+
+
+
+
 
 
 
