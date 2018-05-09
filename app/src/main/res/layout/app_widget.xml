@@ -13,6 +13,11 @@
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:text="주차 위치 추가"/>
+        <Button
+            android:id="@+id/widget_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="새로고침"/>
     </LinearLayout>
    <LinearLayout
        android:layout_width="match_parent"

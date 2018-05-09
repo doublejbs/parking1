@@ -26,6 +26,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private ListView listView;
     private FloatingActionButton fab;
+    private FloatingActionButton fab_delete;
     private NumberPicker alphabet_picker;
     private NumberPicker number_picker;
     private NumberPicker undergroundcheck_picker;
@@ -37,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
 
-        startActivity(new Intent(getApplicationContext(),SplashActivity.class));
+
+        startActivity(new Intent(getApplicationContext(), SplashActivity.class));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -55,14 +57,17 @@ public class MainActivity extends AppCompatActivity {
 
 
         //리스트 어뎁터 생성
-        ArrayAdapter<String> adapter
+        final ArrayAdapter<String> adapter
                 = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arr);
         // simple_list_item_1 은 리스트당 1개의 목록만 띄우는것
 
         //리스트 뷰에 어뎁터 적용
         listView = (ListView) findViewById(R.id.car_list);
+
         listView.setAdapter(adapter);
-     //   listView.setVisibility(View.VISIBLE);
+        if(adapter.getCount()==0)
+            listView.setVisibility(View.INVISIBLE);
+        //   listView.setVisibility(View.VISIBLE);
 
         //리스트뷰 선택시 일단 색깔 바꾸고 다음에는 그 selector로 인식하는걸로 하자
         //그리고 그 눌렀을때 자동차의 위치를 알려주면 되겠다.
@@ -169,6 +174,45 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v){
                 startActivity(new Intent(getApplicationContext(),RegisterActivity.class));
                 //+ 버튼 클릭시 register 페이지로 전달
+            }
+        });
+
+
+        //floating action button 삭제 버튼
+        fab_delete = (FloatingActionButton)findViewById(R.id.fab_delete);
+        fab_delete.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if(nickName[0]==null) //이 줄은 똑바로 안되는듯?
+                    Toast.makeText(MainActivity.this,"차량 선택을 먼저 해 주세요",Toast.LENGTH_LONG);
+                else{
+                        dbClass change_db = new dbClass(getApplicationContext(),"MYLIST.db",null,1);
+                        change_db.delete(nickName[0]);
+
+                    dataDB nick_db = new dataDB(getApplicationContext(),"POSITION.db",null,1);
+                    nick_db.delete(nickName[0]);
+
+                    String list = change_db.read();
+
+
+                    //DB 에서 가져와서 listview에 현재 가지고 있는 모든 차량 리스트를 뽑음
+                    ArrayList<String> arr = new ArrayList<>();
+                    String[] imsi = list.split("/");
+                    for(String item:imsi){
+                        arr.add(item);
+                    }
+
+
+                    //리스트 어뎁터 생성
+                    final ArrayAdapter<String> adapter
+                            = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1,arr);
+                         // simple_list_item_1 은 리스트당 1개의 목록만 띄우는것
+
+
+                        adapter.notifyDataSetChanged();;
+                        listView.setAdapter(adapter);
+
+                }
             }
         });
 

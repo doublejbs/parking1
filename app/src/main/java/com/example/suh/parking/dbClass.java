@@ -34,6 +34,7 @@ public class dbClass extends SQLiteOpenHelper{
         SQLiteDatabase db = getWritableDatabase();
         //DB 입력값을 제거
         db.execSQL("DELETE FROM MYLIST WHERE NICKNAME = '"+nickName+"';");
+
         db.close();
     }
 

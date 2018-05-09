@@ -19,6 +19,8 @@ public class ListWidgetService extends RemoteViewsService {
         return new UpdateWidgetListView(this.getApplicationContext(),intent);
     }
 }
+
+
 class UpdateWidgetListView implements RemoteViewsService.RemoteViewsFactory{
     private static int mCount =0;
     private ArrayList<String> mCarList = new ArrayList<String>();

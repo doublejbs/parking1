@@ -28,18 +28,20 @@ public class AppWidget extends AppWidgetProvider {
     public static final String EXTRA_ITEM = "com.example.android.AppWidget.EXTRA_ITEM";
     public static final String STRING_ITEM = "com.example.android.AppWidget.STRING_ITEM";
     public static final String START_DIALOG = "com.example.android.AppWidget.START_DIALOG";
+    public static final String REFRESH = "com.example.android.AppWidget.REFRESH";
 
     public static String member = "";
 
+
+
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
-
 
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.app_widget);
         dataDB nick_db = new dataDB(context.getApplicationContext(),"POSITION.db",null,1);
         String getmem = member;
-
+        
         //listview를 widget에 올리고 수정할 수 있는 dialog activity 만들기
         Intent intent = new Intent();
 
@@ -76,7 +78,6 @@ public class AppWidget extends AppWidgetProvider {
 
 
 
-
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId,R.id.widget_position);
@@ -99,6 +100,17 @@ public class AppWidget extends AppWidgetProvider {
 
             }
 
+        if(intent.getAction().equals(REFRESH)){
+            int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,AppWidgetManager.INVALID_APPWIDGET_ID);
+
+            RemoteViews updateView = new RemoteViews(context.getPackageName(),R.layout.app_widget);
+
+            ComponentName thiswg = new ComponentName(context,AppWidget.class);
+            AppWidgetManager mgr1 = AppWidgetManager.getInstance(context);
+            mgr1.updateAppWidget(thiswg,updateView);
+            Toast.makeText(context,"버튼 인식은됨 ",Toast.LENGTH_SHORT).show();
+            this.onUpdate(context,AppWidgetManager.getInstance(context),widgetIds);
+        }
     /*    if(intent.getAction().equals(START_DIALOG)){
 
             Intent startDialog = new Intent(context, dialog.class);
@@ -146,14 +158,19 @@ public class AppWidget extends AppWidgetProvider {
                     PendingIntent.FLAG_UPDATE_CURRENT);
             remoteView.setPendingIntentTemplate(R.id.widget_carlist,pendingIntent);
 
-
+            //주차 위치 추가버튼
             Intent clickIntent = new Intent(context,dialog.class);
             clickIntent.setAction(AppWidget.START_DIALOG);
             PendingIntent pendingIntent1 = PendingIntent.getActivity(context,0,clickIntent,
                     PendingIntent.FLAG_UPDATE_CURRENT);
             remoteView.setOnClickPendingIntent(R.id.widget_add_position_btn,pendingIntent1);
 
-
+            //새로고침 버튼
+            Intent refreshIntent = new Intent(context,AppWidget.class);
+            refreshIntent.setAction(AppWidget.REFRESH);
+            PendingIntent pendingIntent2 = PendingIntent.getBroadcast(context,0,refreshIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+            remoteView.setOnClickPendingIntent(R.id.widget_refresh,pendingIntent2);
 
        //     String getString = itemIntent.getStringExtra("row_nickname");
        //     Log.e("tag:",getString);
