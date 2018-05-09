@@ -67,45 +67,30 @@ public class dialog extends Activity {
         alphabet_picker = (NumberPicker)findViewById(R.id.dialog_alphabetpick);
         number_picker = (NumberPicker)findViewById(R.id.dialog_numberpick);
 
-        final String[] underground_array = new String[]{"","지상","지하"};
-        undergroundcheck_picker.setMinValue(1);
+        final String[] underground_array = new String[]{"지상","지하"};
+        undergroundcheck_picker.setMinValue(0);
         undergroundcheck_picker.setMaxValue(underground_array.length-1);
+        undergroundcheck_picker.setDisplayedValues(underground_array);
 
-
-        undergroundcheck_picker.setFormatter(new NumberPicker.Formatter() {
-            @Override
-            public String format(int value) {
-                return underground_array[value];
-            }
-        });
 
         floorNum_picker.setMinValue(1);
         floorNum_picker.setMaxValue(10);
 
 
 
-        final String center_text = new String("층");
-
-        cen_text.setFormatter(new NumberPicker.Formatter() {
-            @Override
-            public String format(int value) {
-                return center_text;
-            }
-        });
+        final String[] center_text = new String[]{("층")};
+        cen_text.setDisplayedValues(center_text);
 
 
         final String[] alphabet_array = new String[]{"A","B","C","D","E","F","G","H","I","J"
                 ,"K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"
-                ,"1","2","3","4","5","6","7","8","9"};
+                ,"1","2","3","4","5","6","7","8","9","가","나",
+                "다","라","마","바","사","아","자","차","카","타","파","하"};
+
         alphabet_picker.setMinValue(0);
         alphabet_picker.setMaxValue(alphabet_array.length-1);
+        alphabet_picker.setDisplayedValues(alphabet_array);
 
-        alphabet_picker.setFormatter(new NumberPicker.Formatter() {
-            @Override
-            public String format(int value) {
-                return alphabet_array[value];
-            }
-        });
 
         number_picker.setMinValue(0);
         number_picker.setMaxValue(99);

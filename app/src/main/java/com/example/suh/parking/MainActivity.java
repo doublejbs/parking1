@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         //리스트 뷰에 어뎁터 적용
         listView = (ListView) findViewById(R.id.car_list);
         listView.setAdapter(adapter);
+     //   listView.setVisibility(View.VISIBLE);
 
         //리스트뷰 선택시 일단 색깔 바꾸고 다음에는 그 selector로 인식하는걸로 하자
         //그리고 그 눌렀을때 자동차의 위치를 알려주면 되겠다.
@@ -79,49 +80,34 @@ public class MainActivity extends AppCompatActivity {
         alphabet_picker = (NumberPicker)findViewById(R.id.alphabetpick);
         number_picker = (NumberPicker)findViewById(R.id.numberpick);
 
-        final String[] underground_array = new String[]{"","지상","지하"};
-        undergroundcheck_picker.setMinValue(1);
+        final String[] underground_array = new String[]{"지상","지하"};
+        undergroundcheck_picker.setMinValue(0);
         undergroundcheck_picker.setMaxValue(underground_array.length-1);
+        undergroundcheck_picker.setDisplayedValues(underground_array);
 
-
-        undergroundcheck_picker.setFormatter(new NumberPicker.Formatter() {
-            @Override
-            public String format(int value) {
-                return underground_array[value];
-            }
-        });
 
         floorNum_picker.setMinValue(1);
         floorNum_picker.setMaxValue(10);
 
 
+       final String[] center_text = new String[]{("층")};
 
-        final String center_text = new String("층     위치:");
-
-        cen_text.setFormatter(new NumberPicker.Formatter() {
-            @Override
-            public String format(int value) {
-                return center_text;
-            }
-        });
+       cen_text.setDisplayedValues(center_text);
 
 
         final String[] alphabet_array = new String[]{"A","B","C","D","E","F","G","H","I","J"
                                                 ,"K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"
-                                                ,"1","2","3","4","5","6","7","8","9"};
+                                                ,"1","2","3","4","5","6","7","8","9","가","나",
+        "다","라","마","바","사","아","자","차","카","타","파","하"};
+
         alphabet_picker.setMinValue(0);
         alphabet_picker.setMaxValue(alphabet_array.length-1);
+        alphabet_picker.setDisplayedValues(alphabet_array);
 
-        alphabet_picker.setFormatter(new NumberPicker.Formatter() {
-            @Override
-            public String format(int value) {
-                return alphabet_array[value];
-            }
-        });
+
 
         number_picker.setMinValue(0);
         number_picker.setMaxValue(99);
-
 
         final String[] nickName = {null};
         //여기다가 추가해야할듯
